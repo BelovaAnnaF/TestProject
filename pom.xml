@@ -15,8 +15,7 @@
 
         <browser>firefox</browser>
         <base.url>https://otus.ru</base.url>
-        <login>login</login>
-        <password>pwd</password>
+
     </properties>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter -->
