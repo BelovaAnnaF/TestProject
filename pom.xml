@@ -58,6 +58,7 @@
             <artifactId>selenium-java</artifactId>
             <version>4.14.1</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
@@ -78,5 +79,6 @@
             </plugin>
         </plugins>
     </build>
+
 
 </project>
