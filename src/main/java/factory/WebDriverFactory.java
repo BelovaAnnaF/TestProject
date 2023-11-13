@@ -1,5 +1,6 @@
 package factory;
 
+import exeptions.DriverNotSupportedException;
 import factory.impl.ChromeDriverOptions;
 import factory.impl.FirefoxDriverOptions;
 import factory.impl.IBrouserOptions;
@@ -17,6 +18,10 @@ public class WebDriverFactory {
 
     public WebDriver newDriver(){
 
+        if(BROUSER_NAME == null){
+            throw new DriverNotSupportedException(BROUSER_NAME);
+        }
+
         switch (BROUSER_NAME) {
             case "chrome": {
                 WebDriverManager.chromedriver().setup();
@@ -29,8 +34,7 @@ public class WebDriverFactory {
                 return new FirefoxDriver((FirefoxOptions) options.getOptions());
             }
 
-            default:
-                throw new IllegalStateException("Unexpected value: " + BROUSER_NAME);
         }
+        return null;
     }
 }
