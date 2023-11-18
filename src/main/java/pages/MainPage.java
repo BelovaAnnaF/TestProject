@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class MainPage extends  AbsBasePage{
 
     public MainPage(WebDriver driver) {
-        super(driver,"/");
+        super(driver);
     }
     //ожидаем окончания загрузки главной страницы
     public void mainPageWaitDownload(){

@@ -3,7 +3,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
+import pages.EventsPage;
 import pages.MainPage;
+import pages.TestsCoursCardPage;
 import pages.TestsCoursesPages;
 
 public class TestsProject{
@@ -14,7 +16,7 @@ public class TestsProject{
     public void init(){
         driver = new WebDriverFactory().newDriver();
         MainPage mainPage = new MainPage(driver);
-        mainPage.open();
+        mainPage.open("/");
         mainPage.mainPageWaitDownload();
     }
 
@@ -39,28 +41,33 @@ public class TestsProject{
     }
 
     @Test
-    public void chekingTestCours(){
 //    Просмотр карточки курса
-//открыли страницу курсов
-        TestsCoursesPages testCoursesPages = new TestsCoursesPages(driver);
-        testCoursesPages.openTestPajes();
-        testCoursesPages.chekingPajeContains();
-
+    public void chekingTestCours(){
 //1 Пользователь переходит на карточку курса
-
+        TestsCoursCardPage testsCoursCardPage = new TestsCoursCardPage(driver);
+        testsCoursCardPage.coursComponentclick("1");
 //2 В карточке указана информация о курсе:
 //    Название
-//            Описание
+//    Описание
 //    Длительность обучения
 //    Формат // Минимально достаточное - проверить одну карточку. В идеале все в разделе тестирования.
+        testsCoursCardPage.returnCoursInfo();
     }
 
 
-//    @Test
+    @Test
 //    Валидация дат предстоящих мероприятий:
-//            1 Пользователь переходит в раздел События -> Календарь мероприятий
+    public void dateEventsValidation(){
+        EventsPage eventsPage = new EventsPage(driver);
+//1 Пользователь переходит в раздел События -> Календарь мероприятий
+        eventsPage.openEventsPage();
 //2 На странице отображаются карточки предстоящих мероприятий.
-//            3 Даты проведения мероприятий больше или равны текущей дате
+        eventsPage.scrollEventsPage();
+        eventsPage.eventsPageContainsCards();
+//3 Даты проведения мероприятий больше или равны текущей дате
+
+    }
+
 
 //    @Test
 //    Просмотр мероприятий по типу:

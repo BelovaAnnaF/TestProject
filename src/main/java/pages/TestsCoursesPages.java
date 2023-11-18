@@ -5,9 +5,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 import java.util.List;
 
 public class TestsCoursesPages extends AbsBasePage{
@@ -17,7 +14,7 @@ public class TestsCoursesPages extends AbsBasePage{
     private String coursesComponentLocator = "//section[@class='sc-o4bnil-0 riKpM']/div/div/a";
 
     public TestsCoursesPages(WebDriver driver) {
-        super(driver,"/");
+        super(driver);
     }
     //перейти на страницу тестирование
     public void openTestPajes(){
@@ -30,7 +27,7 @@ public class TestsCoursesPages extends AbsBasePage{
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(coursesComponentLocator)));
     }
     //помещаем курсы в лист для получения их количества
-    private List<WebElement> coursesList(){
+    protected List<WebElement> coursesList(){
          return driver.findElements(By.xpath(coursesComponentLocator));
     }
 

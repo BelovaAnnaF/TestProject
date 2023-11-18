@@ -13,9 +13,8 @@ public abstract class AbsBasePage extends AbsPageObject {
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
 
-    public AbsBasePage(WebDriver driver, String path) {
+    public AbsBasePage(WebDriver driver) {
         super(driver);
-        this.path = path;
     }
 
     private String normaliseBaseUrl(){
@@ -24,7 +23,7 @@ public abstract class AbsBasePage extends AbsPageObject {
                 : BASE_URL;
     }
 
-    public void open() {
+    public void open(String path) {
         driver.get(normaliseBaseUrl() + path);
     }
 }
