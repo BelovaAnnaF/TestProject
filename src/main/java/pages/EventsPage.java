@@ -3,6 +3,7 @@ package pages;
 import components.EducationPopup;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -11,6 +12,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class EventsPage extends AbsBasePage{
@@ -43,21 +46,29 @@ public class EventsPage extends AbsBasePage{
     public void scrollEventsPage(){
         String loaderLocator = "[@class='dod_new-loader']";
         JavascriptExecutor js = (JavascriptExecutor)driver;
-        long scrollHeight = (long) js.executeScript("return document.body.scrollHeight");
+        long scrollHeight;
+        long scrollHeightNew = (long) js.executeScript("return document.documentElement.scrollHeight");;
 
-            do{
-//Описание метода: https://automated-testing.info/t/prolistyvanie-scrolling-straniczy-s-pomoshhyu-javascript-v-pomoshh-veb-avtomatizatoram/3781
+        do{
+            scrollHeight = scrollHeightNew;
                 js.executeScript("window.scrollTo(0,Math.max(document.documentElement.scrollHeight," +
                         "document.body.scrollHeight,document.documentElement.clientHeight));");
                // wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(loaderLocator)));
                 //wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(loaderLocator)));
-            }while (scrollHeight == scrollHeight);
+                scrollHeightNew = (long) js.executeScript("return document.documentElement.scrollHeight");
+            }while (scrollHeight < scrollHeightNew);
     }
 
     public void validationDatesEvent(){
         List<WebElement> datesEvents = driver
                 .findElements(By.xpath("(//span[@class='dod_new-event__date-text'])[position() mod 2 = 1]"));
         LocalDate currentDate = java.time.LocalDate.now();
+        for (WebElement element : datesEvents) {
+            LocalDate eventDate = LocalDate.parse(element.getText() + " "
+                    + currentDate.getYear(), DateTimeFormatter.ofPattern("d MMMM yyyy"));
+
+            Assertions.assertTrue(eventDate.isAfter(currentDate) || eventDate.isEqual(currentDate));
+        }
     }
 
 

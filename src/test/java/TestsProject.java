@@ -62,6 +62,7 @@ public class TestsProject{
 //1 Пользователь переходит в раздел События -> Календарь мероприятий
         eventsPage.openEventsPage();
 //2 На странице отображаются карточки предстоящих мероприятий.
+
         eventsPage.scrollEventsPage();
         eventsPage.eventsPageContainsCards();
 //3 Даты проведения мероприятий больше или равны текущей дате
