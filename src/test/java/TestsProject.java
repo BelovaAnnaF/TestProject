@@ -65,7 +65,7 @@ public class TestsProject{
         eventsPage.scrollEventsPage();
         eventsPage.eventsPageContainsCards();
 //3 Даты проведения мероприятий больше или равны текущей дате
-
+        eventsPage.validationDatesEvent();
     }
 
 

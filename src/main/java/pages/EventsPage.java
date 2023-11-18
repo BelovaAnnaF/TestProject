@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class EventsPage extends AbsBasePage{
@@ -40,11 +41,23 @@ public class EventsPage extends AbsBasePage{
     }
 
     public void scrollEventsPage(){
+        String loaderLocator = "[@class='dod_new-loader']";
         JavascriptExecutor js = (JavascriptExecutor)driver;
-//Описание метода: https://automated-testing.info/t/prolistyvanie-scrolling-straniczy-s-pomoshhyu-javascript-v-pomoshh-veb-avtomatizatoram/3781
-            js.executeScript("window.scrollTo(0,Math.max(document.documentElement.scrollHeight," +
-                    "document.body.scrollHeight,document.documentElement.clientHeight));");
+        long scrollHeight = (long) js.executeScript("return document.body.scrollHeight");
 
+            do{
+//Описание метода: https://automated-testing.info/t/prolistyvanie-scrolling-straniczy-s-pomoshhyu-javascript-v-pomoshh-veb-avtomatizatoram/3781
+                js.executeScript("window.scrollTo(0,Math.max(document.documentElement.scrollHeight," +
+                        "document.body.scrollHeight,document.documentElement.clientHeight));");
+               // wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(loaderLocator)));
+                //wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(loaderLocator)));
+            }while (scrollHeight == scrollHeight);
+    }
+
+    public void validationDatesEvent(){
+        List<WebElement> datesEvents = driver
+                .findElements(By.xpath("(//span[@class='dod_new-event__date-text'])[position() mod 2 = 1]"));
+        LocalDate currentDate = java.time.LocalDate.now();
     }
 
 
