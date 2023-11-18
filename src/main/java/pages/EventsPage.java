@@ -10,9 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -76,5 +74,18 @@ public class EventsPage extends AbsBasePage{
         return driver.findElements(By.xpath(eventsCardElementLocator));
     }
 
-
+    public void eventsFilter(){
+        driver.findElement(By.xpath("//div[@class = 'dod_new-events-dropdown js-dod_new_events-dropdown']/div/span")).click();
+        driver.findElement(By.xpath("//div[@class='dod_new-events-dropdown js-dod_new_events-dropdown dod_new-events-dropdown_opened']/div[@class='dod_new-events-dropdown__list js-dod_new_events-dropdown']/a[@title ='Открытый вебинар']"))
+                .click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[contains(text(), ' мероприятия')]/..//div/div/span[contains(text(),'Открытые вебинары')]")));
+        }
+    public void validationTypeEvents() {
+        List<WebElement> typeEvents = driver
+                .findElements(By.xpath("(//div[@class='dod_new-type__text'])"));
+        String typeEventReference = "Открытый вебинар";
+        for(WebElement element : typeEvents){
+            Assertions.assertEquals(typeEventReference,element.getText());
+        }
+    }
 }

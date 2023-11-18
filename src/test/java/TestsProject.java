@@ -62,7 +62,6 @@ public class TestsProject{
 //1 Пользователь переходит в раздел События -> Календарь мероприятий
         eventsPage.openEventsPage();
 //2 На странице отображаются карточки предстоящих мероприятий.
-
         eventsPage.scrollEventsPage();
         eventsPage.eventsPageContainsCards();
 //3 Даты проведения мероприятий больше или равны текущей дате
@@ -70,10 +69,16 @@ public class TestsProject{
     }
 
 
-//    @Test
+    @Test
 //    Просмотр мероприятий по типу:
-//            1 Пользователь переходит в раздел События -> Календарь мероприятий
+    public void viewEventsType() {
+        EventsPage eventsPage = new EventsPage(driver);
+//1 Пользователь переходит в раздел События -> Календарь мероприятий
+        eventsPage.openEventsPage();
 //2 Пользователь сортирует мероприятия по типу Открытые вебинары
+        eventsPage.eventsFilter();
+        eventsPage.scrollEventsPage();
 //3 На странице отображаются карточки предстоящих мероприятий. На каждой карточке в типе указанно "Открытые вебинары"
-
+        eventsPage.validationTypeEvents();
+    }
 }
