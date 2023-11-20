@@ -6,7 +6,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class EducationPopup extends AbsBaseCommponent implements IPopup{
 
-    private String basePopupLocator = "//p[contains(text(),'Все курсы')]";
+    private String basePopupLocator = "//div[@class='sc-piuiz2-1 kdOQht']//p[contains(text(),'Все курсы')]";
 
     public EducationPopup(WebDriver driver) {
         super(driver);
@@ -14,7 +14,7 @@ public class EducationPopup extends AbsBaseCommponent implements IPopup{
 
     @Override
     public void popupShouldNotBeVisible() {
-        webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(basePopupLocator)));
+        webDriverWait.until(ExpectedConditions.not(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(basePopupLocator))));
     }
 
     @Override

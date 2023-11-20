@@ -11,6 +11,7 @@ public class ChromeDriverOptions implements IBrouserOptions{
         chromeOptions.addArguments("--remote-allow-origins=*");
         chromeOptions.addArguments("--homepage=about:blank");
         chromeOptions.addArguments("--ignore-certificate-errors");
+        chromeOptions.addArguments("--start-maximized");
 
         return chromeOptions;
     }

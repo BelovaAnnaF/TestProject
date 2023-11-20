@@ -25,9 +25,11 @@ public class EventsPage extends AbsBasePage{
     public void openEventsPage(){
         EducationPopup educationPopup = new EducationPopup(driver);
         Actions actions = new Actions(driver);
+//        educationPopup.popupShouldNotBeVisible();
         WebElement educationElement = driver.findElement(By.xpath("//span[@title='Обучение']"));
         actions.moveToElement(educationElement);
         actions.perform();
+//        educationPopup.popupShouldBeVisible();
         driver.findElement(By.xpath("//a[contains(text(),'Календарь мероприятий')]")).click();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='dod_new-header__title']")));
     }
@@ -42,7 +44,7 @@ public class EventsPage extends AbsBasePage{
     }
 
     public void scrollEventsPage(){
-        String loaderLocator = "[@class='dod_new-loader']";
+        String loaderLocator = "//div[@class='dod_new-loader']";
         JavascriptExecutor js = (JavascriptExecutor)driver;
         long scrollHeight;
         long scrollHeightNew = (long) js.executeScript("return document.documentElement.scrollHeight");;
@@ -51,8 +53,13 @@ public class EventsPage extends AbsBasePage{
             scrollHeight = scrollHeightNew;
                 js.executeScript("window.scrollTo(0,Math.max(document.documentElement.scrollHeight," +
                         "document.body.scrollHeight,document.documentElement.clientHeight));");
-               // wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(loaderLocator)));
-                //wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(loaderLocator)));
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+//                wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(loaderLocator)));
+//                wait.until(ExpectedConditions.not(ExpectedConditions.presenceOfElementLocated(By.cssSelector(loaderLocator))));
                 scrollHeightNew = (long) js.executeScript("return document.documentElement.scrollHeight");
             }while (scrollHeight < scrollHeightNew);
     }
